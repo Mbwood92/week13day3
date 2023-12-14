@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 // I - INDEX - dsiplays a list of all fruits
 app.get('/pokemon/', async (req, res) => {
-     res.send(pokemons);
+     res.render('Index', {pokemons : pokemons});
 })
 
 
