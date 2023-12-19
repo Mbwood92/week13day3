@@ -1,19 +1,46 @@
-const React = require('react');
+const React = require("react");
+const imgsize = {
+  width: "100px",
+  height: "100px",
+};
+const pokenum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 class New extends React.Component {
-    render () {
-        return (
-            <div>
-                <h1>New Pokemon Page</h1>
-                {/* NOTE: action will be the route, method will be the HTTP verb */}
-                <form action='/pokemon' method="POST">
-                    Name: <input type="text" name="name" /><br />
-                    Pokemon: < input type="img" name="color"/> <br />
-                 <input type="submit" name="" value="Create Pokemon"/>
-                </form>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h1>New Pokemon</h1>
+        <form action="/pokemon" method="post">
+          Name:
+          <input type="text" name="name" /><br />
+          choose photo:
+          <br />
+          {pokenum.map((num, index) => {
+            return (
+              <label key={index}>
+                <input
+                  type="radio"
+                  name="img"
+                  value={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+                    pokenum[num - 1]
+                  }.png`}
+                />
+                <img
+                  key={index}
+                  style={imgsize}
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+                    pokenum[num - 1]
+                  }.png`}
+                />
+              </label>
+            );
+          })}
+          <br />
+          <button type="submit">submit</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 module.exports = New;

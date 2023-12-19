@@ -12,20 +12,19 @@ class Index extends React.Component {
                     <a href="/pokemon/new">Create a New Pokemon</a>
                 </nav>
                 <ul>
-                    {pokemon && pokemon.map((pokemon, i) => {
+                    {pokemon.map((pokemon, i) => {
                         return (
-                            <li>
-                                The {' '}
+                            <li key={i}>
+            
                                 <a href={`/pokemon/${pokemon._id}`}>
+                                    Name:
+                                    <br />
                                     {pokemon.name}
-                                </a> {' '}
-                                <img src={pokemon.img}/> <br></br>
+                                    <br />
+                                Image: <br />
+                                <img src={pokemon.img}/> 
+                                </a> 
                                 
-                            <br />
-                            <a href={`/pokemon/${pokemon._id}/edit`}> Edit This pokemon </a>
-                            <form action={`/pokemon/${pokemon._id}?_method=DELETE`} method="POST">
-                                <input type="submit" value="DELETE" />
-                            </form>
                             </li>
                         )
                     })

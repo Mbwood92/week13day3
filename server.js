@@ -45,8 +45,18 @@ app.get('/', (req, res) => {
 
 // INDEX - Display a list of all Pokemon
 app.get('/pokemon', async (req, res) => {
-    res.render('Index', { pokemon: Pokemon });
+        res.render('Index', {pokemon: Pokemon});
+
 });
+
+app.post("/pokemon/search", async (req, res) => {
+    try {
+      const searchPokemon = await Pokemon.find({ name: req.body.name });
+      res.render("Search", { pokemon: searchPokemon });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
 
 // N - NEW - allows a user to input a new fruit
 app.get('/pokemon/new', (req, res) => {
@@ -58,7 +68,6 @@ app.delete('/pokemon/:id', async (req, res) => {
     // res.send('deleting...');
     try {
         const deletedPokemon = await Pokemon.findByIdAndDelete(req.params.id);
-        console.log(deletedPokemon);
         res.status(200).redirect('/pokemon');
     } catch (err) {
         res.status(400).send(err);
@@ -67,19 +76,12 @@ app.delete('/pokemon/:id', async (req, res) => {
 
 // U - UPDATE - makes the actual changes to the database based on the EDIT form
 app.put('/pokemon/:id', async (req, res) => {
-    if (req.body.readyToEat === 'on') {
-        req.body.readyToEat = true;
-    } else {
-        req.body.readyToEat = false;
-    }
-    
-    try {
+     try {
         const updatedPokemon = await Pokemon.findByIdAndUpdate(
             req.params.id,
             req.body
         
 );
-        console.log(updatedPokemon);
         res.status(200).redirect(`/pokemon/${req.params.id}`);
     } catch (err) {
         res.status(400).send(err);
@@ -115,8 +117,8 @@ app.put('/pokemon/:id', async (req, res) => {
 app.get('/pokemon/:id', async (req, res) => {
    
     try {
-        const foundPokemon = await Pokemon.findById(req.params.id);
-        res.render('Show', {pokemon: foundPokemon});
+        const foundOnePokemon = await Pokemon.findById(req.params.id);
+        res.render('Show', {pokemon: foundOnePokemon});
     } catch (err) {
         res.status(400).send(err);
     }
