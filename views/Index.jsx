@@ -21,7 +21,7 @@ class Index extends React.Component {
                                     <br />
                                     {pokemon.name}
                                     <br />
-                                Image: <br />
+                                 <br />
                                 <img src={pokemon.img}/> 
                                 </a> 
                                 
